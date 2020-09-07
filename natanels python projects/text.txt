@@ -1,0 +1,20 @@
+to open the file: variable = open("file name","mode")
+mode: put r to read the file
+      put w to write
+      put a to add on to the file
+      put r+ to read and write
+
+use variable.close() to close the file
+
+for mode r
+write variable.readable() to check if the file is readable
+write variable.read() to read the file
+write variable.readline() to read a line in the file
+write variable.readlines() to put each line into a list
+write variable.readlines()[line number] to get a specific line
+
+for mode a
+write variable.write("piece of text") to add a piece of text to the end of the file
+
+for mode w
+write variable.write("piece of text") to replace the whole file with your piece of text
