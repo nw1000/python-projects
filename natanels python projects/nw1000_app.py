@@ -1,9 +1,10 @@
-import threading
-
 import pygame
 import math
 import random
 from pygame import mixer
+
+sound = True
+music = True
 
 main = True
 
@@ -17,8 +18,8 @@ while main:
     pygame.mouse.set_cursor(*pygame.cursors.arrow)
     pygame.mouse.set_visible(True)
 
-    sound = True
-    music = True
+    #sound = True
+    #music = True
 
     settings = False
     running = False
@@ -104,9 +105,7 @@ while main:
         mouse_position = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if button_coordinates_x + height > mouse_position[
-                    0] > button_coordinates_x and button_coordinates_y + width > mouse_position[
-                    1] > button_coordinates_y:
+                if button_coordinates_x + height > mouse_position[0] > button_coordinates_x and button_coordinates_y + width > mouse_position[1] > button_coordinates_y:
                     return True
 
 
@@ -173,24 +172,10 @@ while main:
 
 
     def bomb_charged(x, y):
-        if bomb_charge <= 30:
-            score = bomb_charged_font.render("bomb charge:" + str(bomb_charge) + "/30", True, (255, 255, 255))
+
+            score = bomb_charged_font.render("bomb charge: " + str(bomb_charge) + "/" + str(), True, (255, 255, 255))
             screen.blit(score, (x, y))
-        elif bomb_charge <= 40:
-            bomb_current_charge = bomb_charge - 30
-            score = bomb_charged_font.render("bomb charge: " + str(bomb_current_charge) + "/10", True, (255, 255, 255))
-            screen.blit(score, (x, y))
-        elif bomb_charge <= 50:
-            bomb_current_charge = bomb_charge - 40
-            score = bomb_charged_font.render("bomb charge: " + str(bomb_current_charge) + "/10", True, (255, 255, 255))
-            screen.blit(score, (x, y))
-        elif bomb_charge <= 60:
-            bomb_current_charge = bomb_charge - 50
-            score = bomb_charged_font.render("bomb charge: " + str(bomb_current_charge) + "/10", True, (255, 255, 255))
-            screen.blit(score, (x, y))
-        else:
-            score = bomb_charged_font.render("out of bombs", True, (255, 255, 255))
-            screen.blit(score, (x, y))
+
 
 
     def play_button(x, y):
@@ -299,8 +284,10 @@ while main:
         main = False
 
     if running:
+        bomb_value = 30
         mixer.music.load("background.wav")
-        mixer.music.play(-1)
+        if music is True:
+            mixer.music.play(-1)
 
     if home:
         for event in pygame.event.get():
@@ -320,6 +307,7 @@ while main:
 
         settings_switches_setup(sound, 1)
         sound = settings_click(sound, 1)
+        print(sound)
         settings_switches_setup(music, 2)
         music = settings_click(music, 2)
 
@@ -360,7 +348,9 @@ while main:
                 if event.key == pygame.K_SPACE:
                     if bullet_state == "ready":
                         bullet_sound = mixer.Sound("laser.wav")
-                        bullet_sound.play()
+                        if sound is True:
+                            bullet_sound.play()
+
                         bullet_x = player_x
                         fire_bullet(bullet_x, bullet_y)
 
@@ -418,7 +408,9 @@ while main:
             collision = is_collision(enemy_x[i], enemy_y[i], bullet_x, bullet_y)
             if collision:
                 collision_sound = mixer.Sound("explosion.wav")
-                collision_sound.play()
+                if sound is True:
+                    collision_sound.play()
+
                 bullet_y = 480
                 bullet_state = "ready"
                 score_value += 1
@@ -438,7 +430,7 @@ while main:
 
         if bomb_mode is False:
             print("bomb is ready for action")
-            if score_value == 40 or score_value == 50 or score_value == 60 or score_value == 70 or score_value == 1 or score_value == 2:
+            if score_value == current_charge:
                 bomb_activation = True
                 print("bomb activated")
 
