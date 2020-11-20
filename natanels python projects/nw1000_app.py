@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+
+import os
+>>>>>>> 6a4a8600843a369b821d6c1b74777cea48a84e1d
 import pygame
 import math
 import random
@@ -13,7 +18,7 @@ while main:
 
     screen = pygame.display.set_mode((800, 600))
 
-    background = pygame.image.load("space_background.png")
+    background = pygame.image.load(os.path.join(os.path.dirname(__file__),"space_background.png"))
 
     pygame.mouse.set_cursor(*pygame.cursors.arrow)
     pygame.mouse.set_visible(True)
@@ -30,33 +35,33 @@ while main:
     bomb_activation = False
 
     pygame.display.set_caption("nw1000 app")
-    icon = pygame.image.load("lightsaber_logo.png")
+    icon = pygame.image.load(os.path.join(os.path.dirname(__file__),"lightsaber_logo.png"))
     pygame.display.set_icon(icon)
 
     transparent = (0, 0, 0, 0)
     bomb_charge = 0
     bomb_mode = False
 
-    onSwitch_image = pygame.image.load("on_switch.png")
-    offSwitch_image = pygame.image.load("off_switch.png")
+    onSwitch_image = pygame.image.load(os.path.join(os.path.dirname(__file__),"on_switch.png"))
+    offSwitch_image = pygame.image.load(os.path.join(os.path.dirname(__file__),"off_switch.png"))
 
-    back_arrow = pygame.image.load("back_arrow.png")
+    back_arrow = pygame.image.load(os.path.join(os.path.dirname(__file__),"back_arrow.png"))
     back_arrow_x = 670
     back_arrow_y = 50
 
-    bombImg = pygame.image.load("bomb.jpeg")
+    bombImg = pygame.image.load(os.path.join(os.path.dirname(__file__),"bomb.jpeg"))
     bomb_x = 10
     bomb_y = 10
 
-    playImg = pygame.image.load("Play_Button.png")
+    playImg = pygame.image.load(os.path.join(os.path.dirname(__file__),"Play_Button.png"))
     play_x = 225
     play_y = 225
 
-    settingsImg = pygame.image.load("settings.png")
+    settingsImg = pygame.image.load(os.path.join(os.path.dirname(__file__),"settings.png"))
     settings_x = 336
     settings_y = 390
 
-    playerImg = pygame.image.load("space-invaders.png")
+    playerImg = pygame.image.load(os.path.join(os.path.dirname(__file__),"space-invaders.png"))
     player_x = 370
     player_y = 480
     player_change = 0
@@ -70,7 +75,7 @@ while main:
     enemy_x_change_2 = 0
 
     for i in range(number_of_enemies):
-        enemyImg.append(pygame.image.load("ghost.png"))
+        enemyImg.append(pygame.image.load(os.path.join(os.path.dirname(__file__),"ghost.png")))
         enemy_x.append(random.randint(0, 736))
         enemy_y.append(random.randint(50, 150))
         enemy_x_change.append(0.5)
@@ -79,7 +84,7 @@ while main:
     # ready - the bullet is ready to be shot and you cant see it
     # fire - the bullet is currently moving
 
-    bulletImg = pygame.image.load("bullet.png")
+    bulletImg = pygame.image.load(os.path.join(os.path.dirname(__file__),"bullet.png"))
     bullet_x = 0
     bullet_y = 480
     bullet_x_change = 0
@@ -142,7 +147,7 @@ while main:
 
 
     def last_score():
-        last_score_value = open("score.txt", "r")
+        last_score_value = open(os.path.join(os.path.dirname(__file__),"score.txt"), "r")
         is_readable = last_score_value.readable()
         if is_readable:
             last_score_value_text = last_score_value.read()
@@ -162,7 +167,7 @@ while main:
 
 
     def high_score():
-        high_score_num = open("high_score.txt", "r")
+        high_score_num = open(os.path.join(os.path.dirname(__file__),"high_score.txt"), "r")
         is_readable = high_score_num.readable()
         if is_readable:
             high_score_value_text = high_score_num.read()
@@ -284,10 +289,15 @@ while main:
         main = False
 
     if running:
+<<<<<<< HEAD
         bomb_value = 30
         mixer.music.load("background.wav")
         if music is True:
             mixer.music.play(-1)
+=======
+        mixer.music.load(os.path.join(os.path.dirname(__file__),"background.wav"))
+        mixer.music.play(-1)
+>>>>>>> 6a4a8600843a369b821d6c1b74777cea48a84e1d
 
     if home:
         for event in pygame.event.get():
@@ -347,10 +357,15 @@ while main:
                     player_change = 4
                 if event.key == pygame.K_SPACE:
                     if bullet_state == "ready":
+<<<<<<< HEAD
                         bullet_sound = mixer.Sound("laser.wav")
                         if sound is True:
                             bullet_sound.play()
 
+=======
+                        bullet_sound = mixer.Sound(os.path.join(os.path.dirname(__file__),"laser.wav"))
+                        bullet_sound.play()
+>>>>>>> 6a4a8600843a369b821d6c1b74777cea48a84e1d
                         bullet_x = player_x
                         fire_bullet(bullet_x, bullet_y)
 
@@ -371,7 +386,7 @@ while main:
             # game over
             if enemy_y[i] > 420:
 
-                high_score_num = open("high_score.txt", "r")
+                high_score_num = open(os.path.join(os.path.dirname(__file__),"high_score.txt"), "r")
                 is_readable = high_score_num.readable()
                 if is_readable:
                     high_score_value_text = high_score_num.read()
@@ -407,10 +422,15 @@ while main:
 
             collision = is_collision(enemy_x[i], enemy_y[i], bullet_x, bullet_y)
             if collision:
+<<<<<<< HEAD
                 collision_sound = mixer.Sound("explosion.wav")
                 if sound is True:
                     collision_sound.play()
 
+=======
+                collision_sound = mixer.Sound(os.path.join(os.path.dirname(__file__),"explosion.wav"))
+                collision_sound.play()
+>>>>>>> 6a4a8600843a369b821d6c1b74777cea48a84e1d
                 bullet_y = 480
                 bullet_state = "ready"
                 score_value += 1
